@@ -1,3 +1,4 @@
-results/
-wandb/
-data/
+/results/
+/wandb/
+/data/
+!visionad_wrapper/data/
