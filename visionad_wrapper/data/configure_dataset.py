@@ -4,6 +4,7 @@ import torch
 from visionad_wrapper.data.utils import add_dataset, configure_mvtec_class
 
 MVTEC_PATH = r""
+IDW_PATH = r""
 VISA_PATH  = r""
 RESULTS_DIRECTORY = r""
 
@@ -62,6 +63,15 @@ visa_folders = ["pipe_fryum",
                 "candle",
         ]
 
+idw_folders = ["BirdStrike",
+               "CarBody",
+               "HouseStructure",
+               "HeadGasket",
+               "NozzleGuideVane",
+               "InspectionPipes",
+               "Combined",]  
+
+
 for name in mvtec_folders:
     if not os.path.exists(os.path.join(MVTEC_PATH, name, "anomaly_test_grouped")) or not os.path.exists(os.path.join(MVTEC_PATH, name, "ground_truth_grouped")):
         ## the MVTec class it its raw format is not suitable for the wrapper, as the defects and GTs are stored in defect-class specific folders
@@ -101,6 +111,22 @@ for name in visa_folders:
                         "mean"         : [0.485, 0.456, 0.406],
                         "std"          : [0.229, 0.224, 0.225],
                         }
+
+for name in idw_folders:
+    datasets[name] = {"dataset_key": name,
+                        "folder_path_regular_train" : os.path.join(IDW_PATH, name, "train", "good"),
+                        "folder_path_regular_test" : os.path.join(IDW_PATH, name, "test", "good"),
+                        "folder_path_novel_test" : os.path.join(IDW_PATH, name, "test", "anomalous"),                        "folder_path_novel_masks" : os.path.join(IDW_PATH, name, "ground_truth", "anomalous"),
+                        "regular_train_start" : None,
+                        "regular_train_end" : None,
+                        "regular_test_start" : None,
+                        "regular_test_end" : None,
+                        "novel_test_start" : None,
+                        "novel_test_end" : None,
+                        "mean"         : [0.485, 0.456, 0.406],
+                        "std"          : [0.229, 0.224, 0.225],
+                        }
+
 
 def load_dataset(key):
     return datasets[key]
