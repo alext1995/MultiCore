@@ -3,9 +3,9 @@ from re import S
 import torch
 from visionad_wrapper.data.utils import add_dataset, configure_mvtec_class
 
-MVTEC_PATH = r"D:\Documents\PhD_work\supporting_data\MVTec_Test\mvtec_anomaly_detection.tar\mvtec_anomaly_detection"
+MVTEC_PATH = r""
 VISA_PATH  = r""
-RESULTS_DIRECTORY = r"D:\Documents\PhD_work\random\TEST_RESULTS"
+RESULTS_DIRECTORY = r""
 
 if MVTEC_PATH=="":
     raise NotImplementedError("Add MVTEC_PATH in data.configure_dataset.py")
