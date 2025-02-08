@@ -81,7 +81,21 @@ def main(dataset_key, ad_device, mask_params, data_save_key):
         preds, masks = None, None
 
         heatmap_set, image_set, targets_set, paths_set = algo_class.test()
+        
+        # order the arrays
+        arrange = np.argsort(paths_set["paths_novel"])
+        paths_set["paths_novel"] = np.array(paths_set["paths_novel"])[arrange]
+        targets_set['targets_novel'] = targets_set['targets_novel'][arrange]
+        image_set["image_score_set_novel"]["scores"] = image_set["image_score_set_novel"]["scores"][arrange] 
+        heatmap_set["heatmap_set_novel"]["segmentations"] = heatmap_set["heatmap_set_novel"]["segmentations"][arrange]
 
+        arrange = np.argsort(paths_set["paths_regular"])
+        paths_set["paths_regular"] = np.array(paths_set["paths_regular"])[arrange]
+        image_set["image_score_set_regular"]["scores"] = image_set["image_score_set_regular"]["scores"][arrange]
+        heatmap_set["heatmap_set_regular"]["segmentations"] = heatmap_set["heatmap_set_regular"]["segmentations"][arrange]
+
+        
+        
         regular_preds = heatmap_set["heatmap_set_regular"]["segmentations"]
         anomalous_preds = heatmap_set["heatmap_set_novel"]["segmentations"]
 
